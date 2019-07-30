@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <style>
+      .row {
+      display: flex;
+    }
+
+      .cell {
+      width: 3rem;
+      height: 3rem;
+      border: solid 1px black;
+      display: flex;
+      justify-content:center;
+      align-items: center;
+    }
+
+    .parent {
+      display: flex;
+    }
+
+    .left {
+      display: flex;
+    }
+
+    .right {
+      display: flex;
+    }
+
+    </style>
+
+  </head>
+  <body>
+    <h1>Acme Pixels</h1>
+    <div id='parent'>
+    <div id='left'>
+      <h2>Controls</h2>
+      <button>Add A Row</button>
+      <button>Remove Row</button>
+      <button>Add A Column</button>
+      <button>Remove Column</button>
+    </div>
+
+    <div id='right'>
+      <h2>Canvas</h2>
+    <div id='grid'>
+      <div class='row'>
+        <div class='cell'></div>
+        <div class='cell'></div>
+        <div class='cell'></div>
+        <div class='cell'></div>
+        <div class='cell'></div>
+      </div>
+      <div class='row'>
+          <div class='cell'></div>
+          <div class='cell'></div>
+          <div class='cell'></div>
+          <div class='cell'></div>
+          <div class='cell'></div>
+        </div>
+        <div class='row'>
+            <div class='cell'></div>
+            <div class='cell'></div>
+            <div class='cell'></div>
+            <div class='cell'></div>
+            <div class='cell'></div>
+          </div>
+          <div class='row'>
+              <div class='cell'></div>
+              <div class='cell'></div>
+              <div class='cell'></div>
+              <div class='cell'></div>
+              <div class='cell'></div>
+            </div>
+            <div class='row'>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+                <div class='cell'></div>
+              </div>
+            </div>
+    </div>
+  </div>
+
+    <script>
+
+      const generateNxN = (n) => {
+        const rows = [];
+        for (let i = 0; i < n; i++) {
+          const row = [];
+          for (let j = 0; j < n; j++) {
+            row.push(0);
+          }
+          rows.push(row);
+        }
+        return rows;
+      }
+
+      const generateHTML = (rows)=> {
+    return rows.map(row =>
+    `<div class='row'>
+      ${ row.map(cell => `div class ='cell'>${ cell }</div>`).join('')}
+      </div>`).join();
+  };
+
+  const data = generateNxN(3);
+  const grid = document.querySelector('#grid');
+
+  grid.addEventListener('click', (ev) => {
+
+    const cell = ev.target;
+    const row = ev.target.parentNode
+    const cdx = [...row.children].indexOf(cell);
+    const rdx = [...row.parentNode.children].indexOf(row);
+
+    // data[rdx][cdx]++;
+    render();
+
+  });
+
+  const render = () => {
+    const html = generateHTML(data);
+    grid.innerHTML = html;
+  };
+  console.table(data);
+
+
+
+    </script>
+  </body>
+</html>
